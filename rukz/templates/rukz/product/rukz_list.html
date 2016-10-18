@@ -1,0 +1,36 @@
+{% extends "rukz/rukz_base.html" %}
+{% load static %}
+{% block title %}
+	{{ product.naim }}
+{% endblock %}
+{% block content %}
+	<!--<div id="sidebar">
+		<h3>Каталог</h3>
+		<ul>
+			<li {% if not category %}class="selected"{% endif %}>
+				<a href="{% url "shop:product_list" %}">Все товары</a>
+			</li>
+			{% for c in categories %}
+			<li {% if category.slug == c.slug %}class="selected"{% endif%}>
+				<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>-->
+
+	<div id="main" class="product-list">
+		<h1>{{ product.naim }}</h1>
+		{% for product in products %}
+			<div class="item">
+				<a href="{{ product.get_absolute_url }}">
+					<img src="{{product.img_link}}">
+				</a>
+				<a href="{{ product.get_absolute_url }}">{{ product.naim }} << naim</a><br>
+				{{ product.price }} руб << price
+				{{ product.link }} << link
+				{{ product.other }} << other
+
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

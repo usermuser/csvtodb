@@ -1,0 +1,15 @@
+{% extends "rukz/rukz_base.html" %}
+{% load static %}
+	{% block title %}
+		Detail.html
+	{% endblock %}
+{% block content %}
+	<div class="product-detail">
+		<img src="{% if product.img_link %}{{product.img_link}}{% else %}
+				  {% static "img/no_image.png" %}{% endif %}">
+		<h1>{{ product.naim }}</h1>
+		<h2><a href="{{ product.get_absolute_url }}"></a></h2>
+		<p class="price">{{ product.price }} руб</p>
+ 		{{ product.other|linebreaks }}
+	</div>
+{% endblock %}
