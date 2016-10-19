@@ -4,12 +4,12 @@ from django.core.urlresolvers import reverse
 
 class Rukzak(models.Model):
 	# fields: Ссылка	Наименование (Артикул - в топку)	Цена, руб.	Изображение	Прочее
-	#link = models.CharField(max_length=200)
+	link = models.CharField(max_length=200)
 	naim = models.CharField(max_length=200, db_index=True)
-	#artikul = models.CharField(max_length=200, db_index=True)
+	artikul = models.CharField(max_length=200, db_index=True)
 	price = models.DecimalField(max_digits=10, decimal_places=2)
-	#img_link = models.CharField(max_length=200)
-	#other = models.CharField(max_length=200, blank=True)
+	img_link = models.CharField(max_length=200)
+	other = models.CharField(max_length=200, blank=True)
 
 	class Meta:
 		#ordering = ('price',)

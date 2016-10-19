@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'shop',
     'csvapp',
+    'rukz',
 )
 
 MIDDLEWARE_CLASSES = (
