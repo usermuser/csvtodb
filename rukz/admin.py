@@ -3,9 +3,9 @@ from django.contrib import admin
 from .models import Rukzak
 
 class RukzakAdmin(admin.ModelAdmin):
-	list_display = ['link', 'naim','price', 'img_link', 'other']
+	list_display = ['link', 'naim', 'artikul','price', 'img_link', 'other']
 	#list_display = ['naim', 'price']
-	list_filter = ['price', 'naim']
+	list_filter = ['price']
 	#list_filter = ['naim', 'price']
 admin.site.register(Rukzak, RukzakAdmin)
 '''

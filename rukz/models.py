@@ -6,9 +6,9 @@ class Rukzak(models.Model):
 	# fields: Ссылка	Наименование (Артикул - в топку)	Цена, руб.	Изображение	Прочее
 	link = models.CharField(max_length=200)
 	naim = models.CharField(max_length=200, db_index=True)
-	artikul = models.CharField(max_length=200, db_index=True)
-	price = models.DecimalField(max_digits=10, decimal_places=2)
-	img_link = models.CharField(max_length=200)
+	artikul = models.CharField(max_length=200, blank=True)
+	price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+	img_link = models.CharField(max_length=200, blank=True)
 	other = models.CharField(max_length=200, blank=True)
 
 	class Meta:
