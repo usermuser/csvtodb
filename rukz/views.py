@@ -3,18 +3,18 @@ from django.shortcuts import render, get_object_or_404
 from .models import Rukzak
 #from cart.forms import CartAddProductForm
 
-def product_list(request):
+def rukz_product_list(request):
     products = Rukzak.objects.all()   
     return render(request,
                     'rukz/product/rukz_list.html',
                     {'products': products})
 
-def product_detail(request, id):
+def rukz_product_detail(request, id):
     product = get_object_or_404(Rukzak,id=id)
 #    cart_product_form = CartAddProductForm()
     return render(request,
                 'rukz/product/rukz_detail.html',
-                {'product': product,})
+                {'product': product})
 #                'cart_product_form': cart_product_form})
 
 

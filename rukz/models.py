@@ -7,7 +7,7 @@ class Rukzak(models.Model):
 	link = models.CharField(max_length=200)
 	naim = models.CharField(max_length=200, db_index=True)
 	artikul = models.CharField(max_length=200, blank=True)
-	price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+	price = models.FloatField(default=0.0)
 	img_link = models.CharField(max_length=200, blank=True)
 	other = models.CharField(max_length=200, blank=True)
 
@@ -20,7 +20,7 @@ class Rukzak(models.Model):
 		return self.naim
 
 	def get_absolute_url(self):
-		return reverse('rukz:product_detail',
+		return reverse('rukz:rukz_product_detail',
 						args=[self.id])
 
 '''class Category(models.Model):
