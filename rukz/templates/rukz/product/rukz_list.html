@@ -25,11 +25,12 @@
 				<a href="{{ product.get_absolute_url }}">
 					<img src="{{product.img_link}}">
 				</a>
-				<a href="{{ product.get_absolute_url }}">{{ product.naim }} << naim</a><br>
-				{{ product.price }} руб << price
-				{{ product.link }} << link
-				{{ product.other }} << other
-
+				<a href="{{ product.get_absolute_url }}">{{ product.naim }}</a><br>
+				Цена {{ product.price }} руб.
+				<!--{{ product.link }} << link add if user.is_authenticated condition-->
+				{% if product.other %}
+					{{ product.other }}
+				{% endif %}
 			</div>
 		{% endfor %}
 	</div>
