@@ -4,8 +4,36 @@
 	{{ product.naim }}
 {% endblock %}
 {% block content %}
-	<!--<div id="sidebar">
+	<div id="sidebar">
 		<h3>Каталог</h3>
+		<ul>
+			<li>
+				<a href="#"> Link to list of bags in Chel office</a>
+			</li>
+			<li>
+				<a href="#"> Link to list of bags in Ekat office</a>
+			</li>
+			<li>
+				<!--===== Pagination block ====-->
+				<div class="pagination">
+					<span class="step-links">
+						{% if products.has_previous %}
+							<a href="?page={{ products.previous_page_number }}">previous</a>
+						{% endif %}
+
+						<span class="current">
+							Page {{ products.number }} of {{ products.paginator.num_pages }}.
+						</span>
+
+						{% if products.has_next %}
+							<a href="?page={{ products.next_page_number }}">next</a>
+						{% endif %}
+					</span>
+				</div>
+		<!--=====End of Pagination======== -->			
+			</li>
+		</ul>
+		<!--
 		<ul>
 			<li {% if not category %}class="selected"{% endif %}>
 				<a href="{% url "shop:product_list" %}">Все товары</a>
@@ -15,11 +43,11 @@
 				<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
 			</li>
 			{% endfor %}
-		</ul>
-	</div>-->
+		</ul> -->
+	</div>
 
 	<div id="main" class="product-list">
-		<h1>{{ product.naim }}</h1>
+		<h3>Товары</h3>
 		{% for product in products %}
 			<div class="item">
 				<a href="{{ product.get_absolute_url }}">
@@ -33,21 +61,6 @@
 				{% endif %}
 			</div>
 		{% endfor %}
-		<!--===== Pagination block ====-->
-		<div class="pagination">
-    		<span class="step-links">
-        		{% if products.has_previous %}
-            		<a href="?page={{ products.previous_page_number }}">previous</a>
-        		{% endif %}
 
-        		<span class="current">
-            		Page {{ products.number }} of {{ products.paginator.num_pages }}.
-        		</span>
-
-        		{% if products.has_next %}
-            		<a href="?page={{ products.next_page_number }}">next</a>
-        		{% endif %}
-    		</span>
-		</div>
 	</div>
 {% endblock %}
