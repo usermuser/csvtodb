@@ -1,10 +1,23 @@
 #coding: utf-8
 from django.shortcuts import render, get_object_or_404
 from .models import Rukzak
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #from cart.forms import CartAddProductForm
 
 def rukz_product_list(request):
-    products = Rukzak.objects.all()   
+    product_list = Rukzak.objects.all()
+    paginator = Paginator(product_list, 25) # Show 25 products per page
+
+    page = request.GET.get('page')
+    try:
+    	products= paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products= paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products= paginator.page(paginator.num_pages)
+
     return render(request,
                     'rukz/product/rukz_list.html',
                     {'products': products})
