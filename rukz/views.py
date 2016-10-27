@@ -15,7 +15,8 @@ def rukz_product_list(request):
     '''
     #product_list = Rukzak.objects.all() # all bags list
     #chel_list = Rukzak.objects.all().filter(naim__contains='##') # bags we have in Chelyabinks
-    ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+    #ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+    product_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
 
 
     '''
