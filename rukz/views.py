@@ -5,7 +5,23 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #from cart.forms import CartAddProductForm
 
 def rukz_product_list(request):
-    product_list = Rukzak.objects.all()
+    '''
+    product_list method pulling all bags from db
+    we also need to create filter to show how many bags we have in Chelyabinsk
+    we need two lists of bags: Chelyabinsk_list(1 day delivery time)
+                               Ekat_list(3-4 days delivery time)
+    in rukz.models.py we have naim method. we look in this method and if we see ##
+    this symbol, this bag is in chel_list, other bags are in ekat_list
+    '''
+    #product_list = Rukzak.objects.all() # all bags list
+    #chel_list = Rukzak.objects.all().filter(naim__contains='##') # bags we have in Chelyabinks
+    ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+
+
+    '''
+    paginator performing pagination for product_list (captain obviously)
+    '''
+
     paginator = Paginator(product_list, 25) # Show 25 products per page
 
     page = request.GET.get('page')
