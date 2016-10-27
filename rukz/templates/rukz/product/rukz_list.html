@@ -8,10 +8,14 @@
 		<h3>Каталог</h3>
 		<ul>
 			<li>
-				<a href="#"> Link to list of bags in Chel office</a>
+				<a href="{% url "rukz:all_product_list" %}"> Все товары </a>
+				
+			</li>
+			<li class="selected">
+				<a href="{% url "rukz:chel_product_list" %}"> Сумки в наличии (доставка на следующий день) </a>
 			</li>
 			<li>
-				<a href="#"> Link to list of bags in Ekat office</a>
+				<a href="{% url "rukz:ekat_product_list" %}"> Сумки на заказ (доставка 3-4 дня) </a>
 			</li>
 			<li>
 				<!--===== Pagination block ====-->
@@ -30,7 +34,7 @@
 						{% endif %}
 					</span>
 				</div>
-		<!--=====End of Pagination======== -->			
+				<!--=====End of Pagination==== -->			
 			</li>
 		</ul>
 		<!--
@@ -47,7 +51,13 @@
 	</div>
 
 	<div id="main" class="product-list">
-		<h3>Товары</h3>
+		<h3>
+			{% if request.get_full_path == "/rukz/" %}Все товары
+			{% elif request.get_full_path == "/rukz/chel/" %}Товары в наличии
+			{% elif request.get_full_path == "/rukz/ekat" %}Товары на заказ {% endif %}
+			
+		</h3>
+
 		{% for product in products %}
 			<div class="item">
 				<a href="{{ product.get_absolute_url }}">
@@ -55,7 +65,7 @@
 				</a>
 				<a href="{{ product.get_absolute_url }}">{{ product.naim }}</a><br>
 				Цена {{ product.price }} руб.
-				<!--{{ product.link }} << link add if user.is_authenticated condition-->
+				<!--{{ product.link }} << show link to supplier catalog (source) (not added yet) -->
 				{% if product.other %}
 					{{ product.other }}
 				{% endif %}

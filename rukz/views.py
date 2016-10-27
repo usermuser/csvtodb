@@ -4,7 +4,7 @@ from .models import Rukzak
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #from cart.forms import CartAddProductForm
 
-def rukz_product_list(request):
+def all_product_list(request):
     '''
     product_list method pulling all bags from db
     we also need to create filter to show how many bags we have in Chelyabinsk
@@ -14,9 +14,9 @@ def rukz_product_list(request):
     this symbol, this bag is in chel_list, other bags are in ekat_list
     '''
     product_list = Rukzak.objects.all() # all bags list
-    chel_list = Rukzak.objects.all().filter(naim__contains='##') # bags we have in Chelyabinks
+    #chel_list = Rukzak.objects.all().filter(naim__contains='##') # bags we have in Chelyabinks
     #ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
-    ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+    #ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
 
 
     '''
@@ -38,6 +38,77 @@ def rukz_product_list(request):
     return render(request,
                     'rukz/product/rukz_list.html',
                     {'products': products})
+
+def chel_product_list(request):
+    '''
+    product_list method pulling all bags from db
+    we also need to create filter to show how many bags we have in Chelyabinsk
+    we need two lists of bags: Chelyabinsk_list(1 day delivery time)
+                               Ekat_list(3-4 days delivery time)
+    in rukz.models.py we have naim method. we look in this method and if we see ##
+    this symbol, this bag is in chel_list, other bags are in ekat_list
+    '''
+    #product_list = Rukzak.objects.all() # all bags list
+    product_list = Rukzak.objects.all().filter(naim__contains='##') # bags we have in Chelyabinks
+    #ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+    #ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+
+
+    '''
+    paginator performing pagination for product_list (captain obviously)
+    '''
+
+    paginator = Paginator(product_list, 25) # Show 25 products per page
+
+    page = request.GET.get('page')
+    try:
+        products= paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products= paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products= paginator.page(paginator.num_pages)
+
+    return render(request,
+                    'rukz/product/rukz_list.html',
+                    {'products': products})
+
+def ekat_product_list(request):
+    '''
+    product_list method pulling all bags from db
+    we also need to create filter to show how many bags we have in Chelyabinsk
+    we need two lists of bags: Chelyabinsk_list(1 day delivery time)
+                               Ekat_list(3-4 days delivery time)
+    in rukz.models.py we have naim method. we look in this method and if we see ##
+    this symbol, this bag is in chel_list, other bags are in ekat_list
+    '''
+    #product_list = Rukzak.objects.all() # all bags list
+    #chel_list = Rukzak.objects.all().filter(naim__contains='##') # bags we have in Chelyabinks
+    #ekat_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+    product_list = Rukzak.objects.exclude(naim__contains='##') # bags for available for order
+
+
+    '''
+    paginator performing pagination for product_list (captain obviously)
+    '''
+
+    paginator = Paginator(product_list, 25) # Show 25 products per page
+
+    page = request.GET.get('page')
+    try:
+        products= paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products= paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products= paginator.page(paginator.num_pages)
+
+    return render(request,
+                    'rukz/product/rukz_list.html',
+                    {'products': products})
+
 
 def rukz_product_detail(request, id):
     product = get_object_or_404(Rukzak,id=id)
